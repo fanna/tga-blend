@@ -33,10 +33,11 @@ Pixel* draw_rect(int x, int y, int width, int height, Pixel pixel_color, FILE *t
 
   int paint_x;
   int paint_y;
+  uint32_t i = 0;
+
   for(paint_y = 0; paint_y < 480; paint_y++)
     for(paint_x = 0; paint_x < 640; paint_x++)
     {
-      uint32_t i = 0;
 
       if(paint_x >= x && paint_x < x + width && paint_y >= y && paint_y < y + height)
       {
@@ -90,7 +91,7 @@ Pixel* blend_two()
   tga1 = fopen("slika1.tga", "wb");
 
   create_header(header, tga1);
-  mat1 = draw_rect(100, 100, 200, 200, color_pixel1, tga1);
+  mat1 = draw_rect(200, 100, 200, 200, color_pixel1, tga1);
 
   fclose(tga1);
 
@@ -103,17 +104,10 @@ Pixel* blend_two()
 
   for(i = 0; i < 307200; i++)
   {
-    if(mat1[i].a == 255 && mat2[i].a == 255)
-    {
-      blended_mat[i].a = 255;
-    }
-    else
-    {
-      blended_mat[i].b = mat1[i].b + mat2[i].b;
-      blended_mat[i].g = mat1[i].g + mat2[i].g;
-      blended_mat[i].r = mat1[i].r + mat2[i].r;
-      blended_mat[i].a = mat1[i].a + mat2[i].a;
-    }
+    blended_mat[i].b = mat1[i].b + mat2[i].b;
+    blended_mat[i].g = mat1[i].g + mat2[i].g;
+    blended_mat[i].r = mat1[i].r + mat2[i].r;
+    blended_mat[i].a = mat1[i].a + mat2[i].a;
   }
 
   return blended_mat;

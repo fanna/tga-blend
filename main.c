@@ -41,7 +41,9 @@ void draw_blended(Pixel *mat)
 int main()
 {
   Pixel *mat = blend_two();
-  blend_two(mat);
+  draw_blended(mat);
+
+  free(mat);
 
   return 0;
 }
